@@ -30,7 +30,7 @@ namespace ServiceExercise
             var serviceProvider = serviceCollection.BuildServiceProvider();
             _logger = serviceProvider.GetService<ILogger<Service>>();
 
-            _logger.LogInformation($"Service(START[{connectionCount}])");
+            _logger.LogInformation($"Service(START[connectionCount={connectionCount}])");
 
             if (connectionCount <= 0)
             {

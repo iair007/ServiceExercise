@@ -24,6 +24,7 @@ namespace ConnectionPool {
             Console.WriteLine($"the result is {result}");
             Console.WriteLine($"Total time wating for summary: {getSummaryTimeSpan.TotalSeconds} seconds");
             Console.WriteLine($"Total Running time: {totalTimeSpan.TotalSeconds} seconds");
+            Console.Read();
 
         }
     }
