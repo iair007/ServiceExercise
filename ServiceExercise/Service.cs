@@ -39,10 +39,10 @@ namespace ServiceExercise
             }
             _connectionCount = connectionCount;
 
-            using (_con = new Connection())
-            {
-                _mainBackgroundTask = Task.Factory.StartNew(process); // Start the processing threads.
-            }
+            _con = new Connection();
+
+            _mainBackgroundTask = Task.Factory.StartNew(process); // Start the processing threads.
+
         }
 
         #region Request Management
