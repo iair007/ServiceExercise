@@ -51,7 +51,13 @@ namespace ServiceExercise
         {
             try
             {
-                if (_queue == null || _queue.IsCompleted)
+                if (request == null)
+                {
+                    throw new ArgumentNullException("request");
+                }
+
+                //if is calling first time, or if the queue was already complete
+                if (_queue == null || _queue.IsCompleted)  
                 {
                     _logger.LogDebug($"sendRequest(starting new queue)");
                     _queue = new BlockingCollection<Request>();
@@ -65,6 +71,9 @@ namespace ServiceExercise
             }
         }
 
+        /// <summary>
+        /// Get from the _queueu and Run the comman from the request
+        /// </summary>
         private void processQueue()
         {
             if (_queue == null) return;
@@ -87,6 +96,9 @@ namespace ServiceExercise
             }
         }
 
+        /// <summary>
+        /// Invoke in parallel of '_connectionCount' the function 'processQueue()'
+        /// </summary>
         private void process()
         {
             var actions = Enumerable.Repeat<Action>(processQueue, _connectionCount);
