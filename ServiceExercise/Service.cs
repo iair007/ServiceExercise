@@ -40,9 +40,6 @@ namespace ServiceExercise
             _connectionCount = connectionCount;
 
             _con = new Connection();
-
-            _mainBackgroundTask = Task.Factory.StartNew(process); // Start the processing threads.
-
         }
 
         #region Request Management
@@ -54,6 +51,10 @@ namespace ServiceExercise
                 if (request == null)
                 {
                     throw new ArgumentNullException("request");
+                }
+
+                if (_mainBackgroundTask == null || _mainBackgroundTask.IsCompleted) {
+                    _mainBackgroundTask = Task.Factory.StartNew(process); // Start the processing threads.
                 }
 
                 //if is calling first time, or if the queue was already complete
@@ -72,7 +73,7 @@ namespace ServiceExercise
         }
 
         /// <summary>
-        /// Get from the _queueu and Run the comman from the request
+        /// Get from the _queue and Run the command from the request
         /// </summary>
         private void processQueue()
         {
